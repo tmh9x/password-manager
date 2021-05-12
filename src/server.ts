@@ -16,7 +16,7 @@ import { isMainPasswordValid } from './utils/validation';
 
 const start = async () => {
   const mainPassword = await askForMainPassword();
-  if (!isMainPasswordValid(mainPassword)) {
+  if (!(await isMainPasswordValid(mainPassword))) {
     console.log('Is invalid');
     start();
   } else {

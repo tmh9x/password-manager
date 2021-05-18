@@ -17,7 +17,7 @@ import {
 } from './utils/validation';
 import CryptoJS from 'crypto-js';
 import dotenv from 'dotenv';
-import { connectDatabase } from './utils/database';
+import { connectDatabase, disconnectDatabase } from './utils/database';
 
 dotenv.config();
 
@@ -105,6 +105,7 @@ const start = async () => {
 
       break;
   }
+  await disconnectDatabase();
 };
 
 start();

@@ -57,3 +57,16 @@ export const askForCredential = async (): Promise<Credential> => {
   ]);
   return answers;
 };
+
+export const chooseAction = async (): Promise<string> => {
+  const answers = await inquirer.prompt<{ action: string }>({
+    type: 'list',
+    name: 'action',
+    message: 'Show or delete service',
+    choices: [
+      { name: 'Show', value: 'show' },
+      { name: 'Delete', value: 'delete' },
+    ],
+  });
+  return answers.action;
+};

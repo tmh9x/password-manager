@@ -17,10 +17,9 @@ import {
 } from './utils/validation';
 import CryptoJS from 'crypto-js';
 import dotenv from 'dotenv';
+import { connectDatabase } from './utils/database';
 
 dotenv.config();
-
-console.log(process.env.MONGO_URL);
 
 //   let mainPassword = await askForMainPassword();
 //   while (!isMainPasswordValid(mainPassword));
@@ -31,7 +30,11 @@ console.log(process.env.MONGO_URL);
 // const databaseURI =
 //   'mongodb+srv://tmh9x:123@cluster0.m4srh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const start = async () => {
-  // await connectDatabase();
+  if (process.env.MONGO_URL === undefined) {
+    throw new Error('Missing env MONGO_URL');
+  }
+
+  await connectDatabase(process.env.MONGO_URL);
 
   let mainPassword = await askForMainPassword();
   while (!(await isMainPasswordValid(mainPassword))) {

@@ -1,6 +1,6 @@
 // import { printPassword } from './utils/messages';
 import {
-  deleteCredentials,
+  // deleteCredentials,
   readCredentials,
   writeCredentials,
 } from './utils/credentials';
@@ -66,25 +66,23 @@ const start = async () => {
                   selectedService.password,
                   'passwordHash'
                 ).toString(CryptoJS.enc.Utf8);
-                console.log(
-                  `The password for ${selectedService.service} with username: ${selectedService.username} is ${selectedService.password}.`
-                );
+                console.log(selectedService);
               }
             }
             break;
-          case 'delete': {
-            const credentialServices = credentials.map(
-              (credential) => credential.service
-            );
-            const service = await chooseService(credentialServices);
-            const selectedService = credentials.find(
-              (credential) => credential.service === service
-            );
-            if (selectedService) {
-              deleteCredentials(selectedService);
-              console.log(`${service} is removed from list.`);
-            }
-          }
+          // case 'delete': {
+          //   const credentialServices = credentials.map(
+          //     (credential) => credential.service
+          //   );
+          //   const service = await chooseService(credentialServices);
+          //   const selectedService = credentials.find(
+          //     (credential) => credential.service === service
+          //   );
+          //   // if (selectedService) {
+          //   //   deleteCredentials(selectedService);
+          //   //   console.log(`${service} is removed from list.`);
+          //   // }
+          // }
         }
       }
       break;

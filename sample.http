@@ -15,5 +15,6 @@ Content-Type: application/json
   "username": "BobBoson",
   "password": "supersecret9000"
 }
+
 ### Delete a credential
 DELETE /api/credentials/MyService HTTP/1.1

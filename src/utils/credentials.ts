@@ -18,16 +18,6 @@ export const writeCredentials = async (
   await getCredentialsCollection().insertOne(newCredential);
 };
 
-// export const deleteCredentials = async (
-//   selectedService: Credential
-// ): Promise<void> => {
-//   const allCredentials = await readCredentials();
-//   const filteredCredentials = allCredentials.filter(
-//     (credential) => credential.service !== selectedService.service
-//   );
-//   await fs.writeFile(
-//     './db.json',
-//     JSON.stringify({ credentials: filteredCredentials }, null, 2),
-//     'utf-8'
-//   );
-// };
+export const deleteCredential = async (service: string): Promise<void> => {
+  await getCredentialsCollection().deleteOne({ service });
+};

@@ -1,6 +1,6 @@
 // import { printPassword } from './utils/messages';
 import {
-  // deleteCredentials,
+  deleteCredential,
   readCredentials,
   writeCredentials,
 } from './utils/credentials';
@@ -57,32 +57,32 @@ const start = async () => {
                 (credential) => credential.service
               );
               const service = await chooseService(credentialServices);
-              const selectedService = credentials.find(
+              const selectedCredential = credentials.find(
                 (credential) => credential.service === service
               );
 
-              if (selectedService) {
-                selectedService.password = CryptoJS.AES.decrypt(
-                  selectedService.password,
+              if (selectedCredential) {
+                selectedCredential.password = CryptoJS.AES.decrypt(
+                  selectedCredential.password,
                   'passwordHash'
                 ).toString(CryptoJS.enc.Utf8);
-                console.log(selectedService);
+                console.log(selectedCredential);
               }
             }
             break;
-          // case 'delete': {
-          //   const credentialServices = credentials.map(
-          //     (credential) => credential.service
-          //   );
-          //   const service = await chooseService(credentialServices);
-          //   const selectedService = credentials.find(
-          //     (credential) => credential.service === service
-          //   );
-          //   // if (selectedService) {
-          //   //   deleteCredentials(selectedService);
-          //   //   console.log(`${service} is removed from list.`);
-          //   // }
-          // }
+          case 'delete': {
+            const credentialServices = credentials.map(
+              (credential) => credential.service
+            );
+            const service = await chooseService(credentialServices);
+            const selectedCredential = credentials.find(
+              (credential) => credential.service === service
+            );
+            if (selectedCredential) {
+              await deleteCredential(selectedCredential.service);
+              console.log(selectedCredential);
+            }
+          }
         }
       }
       break;

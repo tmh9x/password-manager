@@ -6,3 +6,4 @@ dist-ssr
 .eslintcache
 .password
 db.json
+.env

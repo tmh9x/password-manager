@@ -1,12 +1,23 @@
-import fs from 'fs/promises';
 import type { Credential } from '../types';
-
-type DB = {
-  credentials: Credential[];
-};
+import { getCredentialsCollection } from './database';
+import CryptoJS from 'crypto-js';
 
 export const readCredentials = async (): Promise<Credential[]> => {
-  const response = await fs.readFile('./db.json', 'utf-8');
-  const data: DB = JSON.parse(response);
-  return data.credentials;
+  return await getCredentialsCollection().find().sort({ service: 1 }).toArray();
+  // const data: DB = JSON.parse(response);
+  // return data.credentials;
+};
+
+export const writeCredentials = async (
+  newCredential: Credential
+): Promise<void> => {
+  newCredential.password = CryptoJS.AES.encrypt(
+    newCredential.password,
+    'passwordHash'
+  ).toString();
+  await getCredentialsCollection().insertOne(newCredential);
+};
+
+export const deleteCredential = async (service: string): Promise<void> => {
+  await getCredentialsCollection().deleteOne({ service });
 };

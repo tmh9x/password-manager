@@ -6,7 +6,7 @@
     "cli:dev": "ts-node --project tsconfig.server.json src/cli",
     "server:dev": "tsnd --project tsconfig.server.json src/server",
     "server:build": "tsc --project tsconfig.server.json",
-    "client:build": "vite build",
+    "client:build": "tsc && vite build",
     "build": "npm run client:build && npm run server:build",
     "serve": "vite preview",
     "prepare": "husky install",

@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import {
   deleteCredential,
+  readCredential,
   readCredentials,
   writeCredentials,
 } from './utils/credentials';
@@ -24,9 +25,13 @@ app.get('/api/credentials', async (_request, response) => {
   response.json(credentials);
 });
 
+app.get('/api/credentials/:service', async (request, response) => {
+  const credential = await readCredential(request.params.service);
+  response.json(credential);
+});
+
 app.post('/api/credentials', async (request, response) => {
-  await request.body;
-  writeCredentials(request.body);
+  await writeCredentials(request.body);
   response.json('Credential added');
 });
 
